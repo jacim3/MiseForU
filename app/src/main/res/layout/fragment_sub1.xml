@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragments.SubFragment1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/subframe_rect"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvDust_Status"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="보통"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/wemape"
+                android:textColor="#fff"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvDust_Figure"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="-"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:fontFamily="@font/cookierun"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="미세/초미세"
+                android:textSize="10sp"
+                android:textColor="#DFDFDF"
+                android:fontFamily="@font/wemape"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/subframe_rect"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivRain"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:src="@drawable/ic_umbralla"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:padding="5dp"
+                android:fontFamily="@font/wemape"
+                android:textColor="#fff"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvRain_Precent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="-"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:fontFamily="@font/cookierun"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvRain_Desc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="강수 확률"
+                android:textSize="10sp"
+                android:textColor="#DFDFDF"
+                android:fontFamily="@font/wemape"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/subframe_rect"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivHumidity"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:src="@drawable/ic_drop"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:padding="5dp"
+                android:fontFamily="@font/wemape"
+                android:textColor="#fff"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvHumidity_Percent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="-"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:fontFamily="@font/cookierun"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="습도"
+                android:textSize="10sp"
+                android:textColor="#DFDFDF"
+                android:fontFamily="@font/wemape"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/subframe_rect"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivWind"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:src="@drawable/ic_wind"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:padding="3dp"
+                android:fontFamily="@font/wemape"
+                android:textColor="#fff"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tvWind_Detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="-"
+                android:gravity="center"
+                android:textColor="#fff"
+                android:fontFamily="@font/cookierun"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="풍속/풍향"
+                android:textSize="10sp"
+                android:textColor="#DFDFDF"
+                android:fontFamily="@font/wemape"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</FrameLayout>
