@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MiseForYou</string>
-    <string name="SERVICE_KEY">Your_Data_Portal_Key_Here </string>
-    <string name="RESTAPI_KEY">Your_KaKao_Rest_Api_Key_Here</string>
+    <string name="SERVICE_KEY">YOUR PUBLIC_DATA_PORTAL_API_KEY Here</string>
+    <string name="RESTAPI_KEY">YOUR KAKAO_REST_API_KEY HERE</string>
 </resources>
 
