@@ -3,7 +3,7 @@
 
 이 앱은 아래와 같은 구성을 갖습니다.<br>
 앱 시작 시, 데이터는 자동으로 로딩이 되어, 통신오류 발생시 예외처리를 통하여 다시금 데이터를 받아올수 있도록 하였으며,<br>
-직관적이고 간편한 어플을 목표로 개발했습니다. 앱의 기능을 추가하고 보완하여 더욱 완성시키려는 목표를 갖고 있습니다.<br><br>
+직관적이고 사용이 간편한 어플을 목표로 제작했습니다. 앱의 기능을 추가하고 보완하여 더욱 완성시키려는 목표를 갖고 있습니다.<br><br>
 
 ![2](https://user-images.githubusercontent.com/60813834/98635942-2f7a1400-2369-11eb-9a3e-0c03f3567ffd.png)
 ![1](https://user-images.githubusercontent.com/60813834/98635939-2e48e700-2369-11eb-95f0-f397097e7a83.png)
@@ -21,5 +21,4 @@
 ![캡처4](https://user-images.githubusercontent.com/60813834/98635900-1e310780-2369-11eb-887b-2b9df8fbf785.PNG)<br><br>
 2. KaKao Developer에 프로젝트 등록을 하여, 아래에 와면에 들어와서 REST_API 키를 받아옵니다.
 ![캡처7](https://user-images.githubusercontent.com/60813834/98635928-29843300-2369-11eb-9e74-063e857e798a.PNG)
-![캡처8](https://user-images.githubusercontent.com/60813834/98635933-2b4df680-2369-11eb-955f-847b16603474.PNG)<br><br>
 
