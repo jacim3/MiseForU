@@ -120,6 +120,8 @@ class SubFragment1 : Fragment() {
 
         fun setDust(tmp: Int) {
             if (AtmosphericAssembler.isAtmoReady) {
+
+
                 val fineDusts =
                     FirstFragment.atmospheres[tmp][P10_V] + "/" + FirstFragment.atmospheres[tmp][P25_V]
                 var max = 0
@@ -128,7 +130,9 @@ class SubFragment1 : Fragment() {
 
                 val tmp10 = FirstFragment.atmospheres[tmp][P10G_1H]
                 val tmp25 = FirstFragment.atmospheres[tmp][P25G_1H]
-                Log.e("!!!!!!!!!!!!!",tmp10 + tmp25)
+
+
+
 
                 val pm10 = try {
                     tmp10.toInt()
@@ -152,7 +156,10 @@ class SubFragment1 : Fragment() {
 
                 when (max) {
                     0 -> {
-                        str = "정보없음"; colorStr = "#FFFFFF"
+                        if(FirstFragment.atmospheres[tmp][P10_V] != "-" && FirstFragment.atmospheres[tmp][P10G_1H] !="-") {
+
+                        } else
+                            str = "정보없음"; colorStr = "#FFFFFF"
                     }
                     1 -> {
                         str = "좋음"; colorStr = "#00B4DB"

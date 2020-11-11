@@ -28,11 +28,11 @@ class GetAtmoInfoThread(var stationName: String) : Thread() {
     private val atmoInfoUrl = "http://openapi.airkorea.or.kr/openapi/services/rest/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?serviceKey=${SERVICE_KEY}&numOfRows=1&pageNo=1&stationName=${stationName}&dataTerm=DAILY&ver=1.3&"
 
     var handler = Handler()
-
+    val tagArray = arrayOf("dataTime","mangName","so2Value","coValue","o3Value","no2Value","pm10Value","pm10Value24","pm25Value","pm25Value24","khaiValue","khaiGrade","so2Grade", "coGrade","o3Grade","no2Grade","pm10Grade","pm25Grade","pm10Grade1h","pm25Grade1h")
 
     // api로 부터 받아온 데이터를 저장할 변수 관련
     var isChecked = false
-    private var atmoStatusInfo = Array(MAX_SIZE) {"-"}
+    private var atmoStatusInfo = Array(MAX_SIZE) {"0"}
     var index = 0
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun run() {

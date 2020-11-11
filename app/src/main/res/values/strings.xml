@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MiseForYou</string>
-    <string name="SERVICE_KEY">yzQWG37zhWvIasKxNYuerwU9LBZQUgfCLgTkDcNfC7rqDiTVCwFRefzh6lO3K%2BIuuBDa1l0hqkSJ22sAd0p4nA%3D%3D</string>
-    <string name="RESTAPI_KEY">175d0d169576758e740e4d6a6f867c0e</string>
+    <string name="SERVICE_KEY">공공데이터 포털 키</string>
+    <string name="RESTAPI_KEY">카카오 api 키</string>
 </resources>
 
