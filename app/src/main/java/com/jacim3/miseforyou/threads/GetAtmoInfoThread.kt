@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets
     받아온 인접 측정소 정보를 통하여, 대기오염 정보를 받아오는 쓰레드
  */
 val SERVICE_KEY = MainActivity.SERVICE_KEY
-
+private const val MAX_SIZE = 21
 class GetAtmoInfoThread(var stationName: String) : Thread() {
 
 
@@ -32,8 +32,8 @@ class GetAtmoInfoThread(var stationName: String) : Thread() {
 
     // api로 부터 받아온 데이터를 저장할 변수 관련
     var isChecked = false
-    private var atmoStatusInfo = ArrayList<String>()
-
+    private var atmoStatusInfo = Array(MAX_SIZE) {"-"}
+    var index = 0
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun run() {
         if (active) {
@@ -52,20 +52,21 @@ class GetAtmoInfoThread(var stationName: String) : Thread() {
 
                     when (eventType) {
                         XmlPullParser.START_TAG -> {
-                            if (xpp.name == "dataTime")
+                            if (xpp.name == "item")
                                 isChecked = true
                         }
                         XmlPullParser.TEXT -> {
                             if (isChecked) {
-                                if (xpp.text.trim() != "")
-                                    atmoStatusInfo.add(xpp.text.trim())
+                                if (xpp.text.trim() != "" && index < 20)
+                                    atmoStatusInfo[index++] =  xpp.text.trim()
                             }
                         }
                         XmlPullParser.END_TAG -> {
-                            if (xpp.name == "response") {
+                            if (xpp.name == "item") {
+                                isChecked = false
                                 Log.d("debug", "${URLDecoder.decode(stationName, StandardCharsets.UTF_8.name())} : $atmoStatusInfo")
                                 handler.post {
-                                    atmoStatusInfo.add(URLDecoder.decode(stationName, StandardCharsets.UTF_8.name()))
+                                    atmoStatusInfo[MAX_SIZE-1] = (URLDecoder.decode(stationName, StandardCharsets.UTF_8.name()))
                                     AtmosphericAssembler.getAtmoThreadResponse(atmoStatusInfo)
                                 }
                             }

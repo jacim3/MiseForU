@@ -3,6 +3,7 @@ package com.jacim3.miseforyou.fragments
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,21 +19,26 @@ private const val ARG_PARAM2 = "param2"
 
 // 받아올 atmospheres(대기오염정보 배열) 에서 각 데이터에 해당하는 인덱스 값
 const val DATE = 0      // 측정 날짜 시간
+
 //private const val MT = 1      // 측정망 정보
 const val SO2_V = 2      // 아황산가스 농도
 const val CO1_V = 3      // 일산화탄소 농도
 const val O3_V = 4      // 오존 농도
 const val NO2_V = 5      // 이산화질소 농도
 const val P10_V = 6     // 미세먼지 pm10 농도
+
 //private const val p10_V_24 = 7  // pm10 24시간 예측 농도
 const val P25_V = 8     // 미세먼지 pm2.5 농도
+
 //private const val p25_V_24 = 9  // pm2.5 24시간 예측 농도
 const val K_V = 10      // 통합 대기환경 수치
+
 //private const val K_G = 11    // 통합 대기환경 지수
 const val SO2_G = 12     // 아황산가스 지수
 const val CO1_G = 13     // 일산화탄소 지수
 const val O3_G = 14     // 오존 지수
 const val NO2_G = 15     // 이산화질소 지수
+
 //const val P_10_G = 16   // 미세먼지 pm10 24시간 등급
 //const val P_25_G = 17   // 미세먼지 pm2.5 24시간 등급
 const val P10G_1H = 18         // 미세먼지 pm10 1시간 등급
@@ -69,14 +75,14 @@ class SubFragment1 : Fragment() {
         val ivWind = view.findViewById<ImageView>(R.id.ivWind)
         val tvWDetail = view.findViewById<TextView>(R.id.tvWind_Detail)
 
-        Handler().postDelayed(object: Runnable{
+        Handler().postDelayed(object : Runnable {
             override fun run() {
-                if(ForeCastAssembler.isForeReady){
-                    setForeCast(tvRPercent,tvHFigure,tvWDetail)
+                if (ForeCastAssembler.isForeReady) {
+                    setForeCast(tvRPercent, tvHFigure, tvWDetail)
                 } else
-                    Handler().postDelayed(this,1000)
+                    Handler().postDelayed(this, 1000)
             }
-        },0)
+        }, 0)
         return view
     }
 
@@ -84,15 +90,15 @@ class SubFragment1 : Fragment() {
         var isPOP = true
         var detailInfo = ""
         FirstFragment.foreCasts[TAG].forEachIndexed { index, s ->
-            if(s == "POP" && isPOP) {
+            if (s == "POP" && isPOP) {
                 tvRPercent.text = FirstFragment.foreCasts[DATA][index] + "%"
                 isPOP = false
             }
-            if(s == "REH")
-                tvHFigure.text = FirstFragment.foreCasts[DATA][index]+"%"
+            if (s == "REH")
+                tvHFigure.text = FirstFragment.foreCasts[DATA][index] + "%"
 
             if (s == "WSD")
-                tvWdetail.text = FirstFragment.foreCasts[DATA][index]+"m/s"
+                tvWdetail.text = FirstFragment.foreCasts[DATA][index] + "m/s"
         }
     }
 
@@ -113,25 +119,63 @@ class SubFragment1 : Fragment() {
             }
 
         fun setDust(tmp: Int) {
-            if(AtmosphericAssembler.isAtmoReady){
-                val fineDusts = FirstFragment.atmospheres[tmp][P10_V]+"/"+FirstFragment.atmospheres[tmp][P25_V]
+            if (AtmosphericAssembler.isAtmoReady) {
+                val fineDusts =
+                    FirstFragment.atmospheres[tmp][P10_V] + "/" + FirstFragment.atmospheres[tmp][P25_V]
                 var max = 0
                 var str = ""
-                var colorStr =""
-                val pm10 = FirstFragment.atmospheres[tmp][P10G_1H].toInt()
-                val pm25 = FirstFragment.atmospheres[tmp][P25G_1H].toInt()
+                var colorStr = ""
 
-                max = if(pm10 < pm25) pm25 else pm10
+                val tmp10 = FirstFragment.atmospheres[tmp][P10G_1H]
+                val tmp25 = FirstFragment.atmospheres[tmp][P25G_1H]
+                Log.e("!!!!!!!!!!!!!",tmp10 + tmp25)
 
-                when(max){
-                    1 -> {str= "좋음"; colorStr = "#00B4DB"}
-                    2 -> {str= "보통"; colorStr = "#FFFFFF"}
-                    3 -> {str= "나쁨"; colorStr = "#ffc000"}
-                    4 -> {str= "매우나쁨"; colorStr = "#ed7d31"}
+                val pm10 = try {
+                    tmp10.toInt()
+                } catch (e: NumberFormatException) {
+                    0
+                }
+                val pm25 = try {
+                    tmp25.toInt()
+                } catch (e: NumberFormatException) {
+                    0
                 }
 
+
+                // 미세먼지 등급을 매기는데 있어서, 보다 큰값(나쁜 지수)을 기준으로 하기 위하여.
+                max = when {
+                    pm10 > pm25 -> pm10
+                    pm10 < pm25 -> pm25
+                    pm10 != 0 && pm25 != 0 -> pm10
+                    else -> 0
+                }
+
+                when (max) {
+                    0 -> {
+                        str = "정보없음"; colorStr = "#FFFFFF"
+                    }
+                    1 -> {
+                        str = "좋음"; colorStr = "#00B4DB"
+                    }
+                    2 -> {
+                        str = "보통"; colorStr = "#FFFFFF"
+                    }
+                    3 -> {
+                        str = "나쁨"; colorStr = "#ffc000"
+                    }
+                    4 -> {
+                        str = "매우나쁨"; colorStr = "#ed7d31"
+                    }
+                }
+
+                var count = 0
+                var i =0
+                while (i < fineDusts.length){
+                    if(fineDusts[i] == '-') count++
+                    i++
+                }
+                if(count == 1) tvDStatus.text = "$str?" else tvDStatus.text = str
                 tvDFigure.text = fineDusts
-                tvDStatus.text = str
                 tvDStatus.setTextColor(Color.parseColor(colorStr))
             }
         }

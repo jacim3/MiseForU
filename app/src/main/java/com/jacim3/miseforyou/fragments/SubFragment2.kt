@@ -3,11 +3,13 @@ package com.jacim3.miseforyou.fragments
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.jacim3.miseforyou.MainActivity
 import com.jacim3.miseforyou.R
 import com.jacim3.miseforyou.addons.AtmosphericAssembler
 
@@ -45,15 +47,23 @@ class SubFragment2 : Fragment() {
         tvSO2Status = view.findViewById(R.id.tvSO2_Status)
         tvSO2Figure = view.findViewById(R.id.tvSO2_Figure)
 
-        Handler().postDelayed(object: Runnable{
+        Handler().postDelayed(object : Runnable {
             override fun run() {
-                if(AtmosphericAssembler.isAtmoReady)
+                if (AtmosphericAssembler.isAtmoReady)
                     setView(0)
                 else
                     Handler().postDelayed(this, 1000)
             }
-        },0)
+        }, 0)
         onCreate = true
+
+        for (i in FirstFragment.stations.indices) {
+            if (FirstFragment.spinner.selectedItem.toString() == FirstFragment.atmospheres[i][FirstFragment.atmospheres[i].size-1]) {
+                FirstFragment.spinner.setSelection(i)
+                break
+            }
+        }
+
         return view
     }
 
@@ -82,30 +92,47 @@ class SubFragment2 : Fragment() {
         fun prepareView() {
 
         }
+
         fun setView(tmp: Int) {
             tvO3Figure.text = FirstFragment.atmospheres[tmp][O3_V]
             tvCO1Figure.text = FirstFragment.atmospheres[tmp][CO1_V]
             tvNO2Figure.text = FirstFragment.atmospheres[tmp][NO2_V]
             tvSO2Figure.text = FirstFragment.atmospheres[tmp][SO2_V]
 
-            atmoSymbol(FirstFragment.atmospheres[tmp][O3_V], FirstFragment.atmospheres[tmp][O3_G], tvO3Status)
-            atmoSymbol(FirstFragment.atmospheres[tmp][CO1_V], FirstFragment.atmospheres[tmp][CO1_G], tvCO1Status)
-            atmoSymbol(FirstFragment.atmospheres[tmp][NO2_V], FirstFragment.atmospheres[tmp][NO2_G], tvNO2Status)
-            atmoSymbol(FirstFragment.atmospheres[tmp][SO2_V], FirstFragment.atmospheres[tmp][SO2_G], tvSO2Status)
+            atmoSymbol(
+            //    FirstFragment.atmospheres[tmp][O3_V],
+                FirstFragment.atmospheres[tmp][O3_G],
+                tvO3Status
+            )
+            atmoSymbol(
+             //   FirstFragment.atmospheres[tmp][CO1_V],
+                FirstFragment.atmospheres[tmp][CO1_G],
+                tvCO1Status
+            )
+            atmoSymbol(
+            //    FirstFragment.atmospheres[tmp][NO2_V],
+                FirstFragment.atmospheres[tmp][NO2_G],
+                tvNO2Status
+            )
+            atmoSymbol(
+             //   FirstFragment.atmospheres[tmp][SO2_V],
+                FirstFragment.atmospheres[tmp][SO2_G],
+                tvSO2Status
+            )
         }
-        private fun atmoSymbol(value: String, grade: String,textView: TextView){
-            val idx = grade.toInt()-1
-            val symbol = arrayOf("좋음","보통","나쁨","매우나쁨")
-            val colors = arrayOf("#00B4DB","#FFFFFF","#ffc000","#ed7d31")
 
-            if(grade == "-" || value == "-") {
-                textView.text = "정보없음"
-                textView.setTextColor(Color.parseColor("#FFFFFF"))
+        private fun atmoSymbol(grade: String, textView: TextView) {
+
+            val idx = try {
+                grade.toInt()
+            } catch (e: NumberFormatException) {
+                0
             }
-            else {
-                textView.text = symbol[idx]
-                textView.setTextColor(Color.parseColor(colors[idx]))
-            }
+            val symbol = arrayOf("정보없음", "좋음", "보통", "나쁨", "매우나쁨")
+            val colors = arrayOf("#FFFFFF", "#00B4DB", "#FFFFFF", "#ffc000", "#ed7d31")
+
+               textView.text = symbol[idx]
+               textView.setTextColor(Color.parseColor(colors[idx]))
         }
     }
 }

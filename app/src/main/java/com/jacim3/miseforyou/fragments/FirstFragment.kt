@@ -74,7 +74,7 @@ class FirstFragment : Fragment() {
         val tvTemp = view.findViewById<TextView>(R.id.tvTemp)       // 온도 출력
         val ivWeather = view.findViewById<ImageView>(R.id.ivWeather)        // 날씨 출력(이미지)
         val tvWeDesc = view.findViewById<TextView>(R.id.tvWeatherDesc)      // 날씨 설명 출력
-
+        val ivAtmo = view.findViewById<ImageView>(R.id.iv_Atmo)
         val scrollPager = view.findViewById<ViewPager2>(R.id.scrollPager)
         val rotate = AnimationUtils.loadAnimation(context, R.anim.rotate_anim)
         rotateButton.isSoundEffectsEnabled = false
@@ -107,6 +107,7 @@ class FirstFragment : Fragment() {
                     Toast.makeText(context,"현재 데이터를 읽어오는 중 입니다.",Toast.LENGTH_SHORT).show()
                 }
             }
+
         onCreateBool = true
         rotateButton.performClick()
         return view
@@ -168,6 +169,7 @@ class FirstFragment : Fragment() {
         var stations = ArrayList<String>()
         var atmospheres: ArrayList<ArrayList<String>> = ArrayList()
         var foreCasts: ArrayList<ArrayList<String>> = ArrayList()
+        var tmp = 0
 
         var proceedAtmo = false
         var proceedFore = false
@@ -218,12 +220,10 @@ class FirstFragment : Fragment() {
         }
 
         private fun spinnerSetting(spinner: Spinner) {
-            var tmp = 0
             val arrayAdapter =
                 ArrayAdapter(ctx, R.layout.custom_spinner, stations)
             arrayAdapter.setDropDownViewResource(R.layout.custom_spinner)
             spinner.adapter = arrayAdapter
-
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -248,7 +248,6 @@ class FirstFragment : Fragment() {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
             }
-
         }
     }
 }

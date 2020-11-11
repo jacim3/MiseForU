@@ -55,19 +55,23 @@ class AtmosphericAssembler(latitude: String, longitude: String) {
         }
 
         // 대기정보 쓰레드에서 호출되어 결과값을 받아온다.
-        fun getAtmoThreadResponse(atmoStatusInfo: ArrayList<String>) {
-            count++
+        fun getAtmoThreadResponse(atmoStatusInfo: Array<String>) {
 
-            atmoInfoArray.add(atmoStatusInfo)
-            Log.e("aaaa",MainActivity.addresses.toString())
+            val tmpArrayList = ArrayList<String>()
+            atmoStatusInfo.forEach {
+                tmpArrayList.add(it)
+            }
+            Log.e("!!!!!!!!!!!!!!!!!!",tmpArrayList.toString())
+
+            atmoInfoArray.add(tmpArrayList)
+
             if(MainActivity.addresses!!.size != 0) {
-                if (count == stations.size - 1) {
+                if (count++ == stations.size - 1) {
                     isAtmoReady = true
                     FirstFragment.getAtmosphere(stations, atmoInfoArray)
                     count = 0
                     Log.d("MainActivity", "GetAtmoInfoThread : 완료")
                     FirstFragment.receptionOK(ATMOSPHERE_ASSEMBLER_CODE)
-                    Log.e("bbbb",MainActivity.addresses.toString())
                 }
             } else {
                 FirstFragment.encounterError(ATMOSPHERE_ASSEMBLER_CODE)
