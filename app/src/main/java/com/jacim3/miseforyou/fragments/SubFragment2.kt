@@ -50,20 +50,20 @@ class SubFragment2 : Fragment() {
         Handler().postDelayed(object : Runnable {
             override fun run() {
                 if (AtmosphericAssembler.isAtmoReady)
-                    setView(0)
+                    setView(FirstFragment.tmp)
                 else
                     Handler().postDelayed(this, 1000)
             }
         }, 0)
         onCreate = true
-
+/*
         for (i in FirstFragment.stations.indices) {
             if (FirstFragment.spinner.selectedItem.toString() == FirstFragment.atmospheres[i][FirstFragment.atmospheres[i].size-1]) {
                 FirstFragment.spinner.setSelection(i)
                 break
             }
         }
-
+*/
         return view
     }
 
